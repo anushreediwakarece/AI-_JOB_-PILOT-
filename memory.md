@@ -292,6 +292,24 @@ Last updated: 2026-07-09
 - Verified: tsc clean; `/` renders 200 with default `dark` class; dark tokens
   (`#0b0e14`, `#151a23`, `#f2f4f8`, `#8b74ff`) present in compiled CSS.
 
+## GitHub publish + README (2026-07-09)
+
+- **Repo:** https://github.com/anushreediwakarece/AI-_JOB_-PILOT- — pushed the full project
+  (97 files) to `origin/main` (git identity `anushreediwakarece`). Branch renamed `master`→
+  `main`. Pushed via HTTPS (cached creds; `gh` CLI not installed). Was non-destructive: the
+  remote had only 2 empty commits (Initial + "Delete README.md"), so rebased on top.
+- **New files:** rewrote `README.md` (GitHub-flavored: badges, TOC, screenshots from
+  `context/designs/*.png`, tech stack matching `package.json`, env table, structure, how-it-
+  works). Added committed `.env.example` template (no secrets).
+- **`.gitignore`** now excludes: `.env*` (but `!.env.example`), `scratch*.mjs`, `scratch*.ts`,
+  `*.backup.md`. Verified `.env.local` + scratch files are NOT on the remote.
+- **⚠️ SECURITY — action pending:** `scratch.mjs` / `scratch2.mjs` (local, now gitignored)
+  had a **hardcoded live Gemini key** (`AQ.Ab8…` — same as `.env.local`; value intentionally
+  not repeated here). NOT pushed, but advised the user to **rotate the Gemini key** in
+  Google AI Studio and update `.env.local`. `scratch_test.mjs` also had the InsForge URL +
+  anon key `ik_...` (anon key is public by design — lower risk).
+- For future pushes: `git add -A && git commit -m "…" && git push` (tracks `origin/main`).
+
 ## Decisions made
 
 - Store storage KEY (not signed URL) in `resume_pdf_url`; mint signed URLs on demand.
@@ -342,8 +360,12 @@ Last updated: 2026-07-09
     on login + capture `job_found`/`company_researched` consistently, then a query layer with a
     Personal API key.
 
-## Open questions
+## Open questions / pending actions
 
+- **ROTATE the Gemini key** — it was hardcoded in local `scratch.mjs`/`scratch2.mjs` (now
+  gitignored, never pushed). Regenerate in Google AI Studio + update `.env.local` to be safe.
 - The Gemini key is still an `AQ.Ab8…`-type key that likely still has a modest daily
   cap. If AI features stop mid-day, it's the daily quota again (resets ~midnight PT).
   Consider enabling billing or moving to InsForge's provisioned OpenRouter AI later.
+- Before deploy: `next build` fails on pre-existing repo-wide `no-explicit-any` lint — set
+  `eslint.ignoreDuringBuilds` in `next.config` or clean up first.
