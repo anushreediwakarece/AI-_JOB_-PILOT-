@@ -32,6 +32,12 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# local scratch / experiment scripts — may contain hardcoded secrets, never commit
+scratch*.mjs
+scratch*.ts
+*.backup.md
 
 # vercel
 .vercel

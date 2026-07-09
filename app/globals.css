@@ -1,26 +1,180 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Font */
+  --font-sans: "Inter", sans-serif;
+
+  /* Page and surface backgrounds */
+  --color-background: #f6f7fb;
+  --color-surface: #ffffff;
+  --color-surface-secondary: #f9fafb;
+  --color-surface-tertiary: #f2f5f7;
+  --color-surface-muted: #f4f5fb;
+
+  /* Borders */
+  --color-border: #e7eaf3;
+  --color-border-light: #e5e7eb;
+  --color-border-muted: #dfe1e7;
+
+  /* Text */
+  --color-text-primary: #101828;
+  --color-text-secondary: #6a7282;
+  --color-text-muted: #99a1af;
+  --color-text-dark: #364153;
+  --color-text-darker: #36394a;
+  --color-text-darkest: #111827;
+  --color-text-black: #131316;
+  --color-text-slate: #272835;
+  --color-text-slate-medium: #666d80;
+
+  /* Primary accent — purple */
+  --color-accent: #7c5cfc;
+  --color-accent-dark: #5e4cff;
+  --color-accent-light: #f3e8ff;
+  --color-accent-muted: #faf5ff;
+  --color-accent-foreground: #ffffff;
+
+  /* Success — green */
+  --color-success: #10b981;
+  --color-success-alt: #00bc7d;
+  --color-success-dark: #007a55;
+  --color-success-darker: #009966;
+  --color-success-light: #d0fae5;
+  --color-success-lightest: #ecfdf5;
+  --color-success-foreground: #007a55;
+
+  /* Info — blue */
+  --color-info: #61a8ff;
+  --color-info-dark: #155dfc;
+  --color-info-medium: #2b7fff;
+  --color-info-light: #dbeafe;
+  --color-info-lightest: #eff6ff;
+  --color-info-foreground: #155dfc;
+  --color-info-muted: #94a2c5;
+
+  /* Warning — orange */
+  --color-warning: #ff8904;
+  --color-warning-foreground: #ffffff;
+
+  /* Error — red */
+  --color-error: #ef4444;
+  --color-error-foreground: #ffffff;
+
+  /* LinkedIn brand */
+  --color-linkedin: #0a66c2;
+  --color-linkedin-light: #dce6f1;
+  --color-linkedin-foreground: #ffffff;
+
+  /* Dark overlays */
+  --color-overlay: #111827;
+  --color-overlay-dark: #131316;
+
+  /* Border radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/*
+ * Dark theme — overrides every color token. Applied via a `dark` class on <html>
+ * (default), toggled by the ThemeToggle on the landing page. Because the whole app
+ * styles from these CSS variables, this one block re-themes every page.
+ */
+:root.dark {
+  color-scheme: dark;
+
+  /* Page and surface backgrounds */
+  --color-background: #0b0e14;
+  --color-surface: #151a23;
+  --color-surface-secondary: #1c2230;
+  --color-surface-tertiary: #232a3a;
+  --color-surface-muted: #1a2030;
+
+  /* Borders */
+  --color-border: #29303f;
+  --color-border-light: #323a4d;
+  --color-border-muted: #242b39;
+
+  /* Text — inverted to light-on-dark */
+  --color-text-primary: #f2f4f8;
+  --color-text-secondary: #a7b0be;
+  --color-text-muted: #7b8494;
+  --color-text-dark: #d3d9e3;
+  --color-text-darker: #dde2ea;
+  --color-text-darkest: #f7f9fc;
+  --color-text-black: #ffffff;
+  --color-text-slate: #c9d0dc;
+  --color-text-slate-medium: #98a1b1;
+
+  /* Primary accent — purple (brightened for dark contrast) */
+  --color-accent: #8b74ff;
+  --color-accent-dark: #a693ff;
+  --color-accent-light: #2a2350;
+  --color-accent-muted: #1b1730;
+  --color-accent-foreground: #ffffff;
+
+  /* Success — green */
+  --color-success: #22c55e;
+  --color-success-alt: #22c58a;
+  --color-success-dark: #4ade80;
+  --color-success-darker: #34d399;
+  --color-success-light: #14331f;
+  --color-success-lightest: #10281c;
+  --color-success-foreground: #4ade80;
+
+  /* Info — blue */
+  --color-info: #60a5fa;
+  --color-info-dark: #93c5fd;
+  --color-info-medium: #3b82f6;
+  --color-info-light: #17293f;
+  --color-info-lightest: #122032;
+  --color-info-foreground: #93c5fd;
+  --color-info-muted: #64748b;
+
+  /* Warning — orange */
+  --color-warning: #fb9a3a;
+  --color-warning-foreground: #ffffff;
+
+  /* Error — red */
+  --color-error: #f87171;
+  --color-error-foreground: #ffffff;
+
+  /* LinkedIn brand */
+  --color-linkedin: #4a97e6;
+  --color-linkedin-light: #17273c;
+  --color-linkedin-foreground: #ffffff;
+
+  /* Dark overlays / bands — stay dark in both themes; kept visible on the dark page */
+  --color-overlay: #171c26;
+  --color-overlay-dark: #2a3040;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/*
+ * Base styles — applied globally.
+ * All values reference @theme tokens only.
+ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  min-height: 100vh;
 }
